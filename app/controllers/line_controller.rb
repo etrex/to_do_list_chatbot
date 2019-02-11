@@ -10,7 +10,8 @@ class LineController < ApplicationController
         type: 'text',
         text: 'QQ'
       }
-      client.reply_message(reply_token, message)
+      response = client.reply_message(reply_token, message)
+      p response.body
     end
     head :ok
   end
