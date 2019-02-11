@@ -3,7 +3,7 @@ class LineController < ApplicationController
 
   def create
     body = request.body.read
-    events client.parse_events_from(body)
+    events = client.parse_events_from(body)
     events.each do |event|
       reply_token = event['replyToken']
       message = {
