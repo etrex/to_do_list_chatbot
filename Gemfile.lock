@@ -75,6 +75,9 @@ GEM
     concurrent-ruby (1.1.4)
     crass (1.0.4)
     dotenv (2.6.0)
+    dotenv-rails (2.6.0)
+      dotenv (= 2.6.0)
+      railties (>= 3.2, < 6.0)
     erubi (1.8.0)
     execjs (2.7.0)
     ffi (1.10.0)
@@ -201,7 +204,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   chromedriver-helper
   coffee-rails (~> 4.2)
-  dotenv (~> 2.6)
+  dotenv-rails (~> 2.6)
   jbuilder (~> 2.5)
   line-bot-api (~> 1.5)
   listen (>= 3.0.5, < 3.2)
