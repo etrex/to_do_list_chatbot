@@ -10,7 +10,6 @@ class LineController < ApplicationController
         type: 'text',
         text: 'QQ'
       }
-      byebug
       response = client.reply_message(reply_token, message)
       p response.body
     end
