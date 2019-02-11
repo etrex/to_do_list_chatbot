@@ -12,6 +12,7 @@ class LineController < ApplicationController
       }
       client.reply_message(reply_token, message)
     end
+    head :ok
   end
 
   private
