@@ -117,7 +117,7 @@ class LineController < ApplicationController
   def process_event(event)
     reply_token = event['replyToken']
     input = event.message['text']
-    output = reserve_route_for_line(message, "GET")
+    output = reserve_route_for_line(input, "GET")
     response = client.reply_message(reply_token, output)
   end
 
