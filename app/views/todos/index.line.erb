@@ -1,0 +1,6 @@
+<%= raw JSON.pretty_generate(flex_list_view(
+  title: "Todos",
+  list: @todos,
+  menu_action: flex_message_action("/"),
+  new_action: flex_message_action("/todos/new"),
+)) %>

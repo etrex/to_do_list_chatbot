@@ -16,8 +16,11 @@ class LineController < ApplicationController
     reply_token = event['replyToken']
     input = event.message['text']
     output = reserve_route_for_line(input, "GET")
+    puts output
     response = client.reply_message(reply_token, JSON.parse(output))
-  rescue
+    puts "response.body ="
+    puts response.body
+  rescue NoMethodError
     response = client.reply_message(reply_token, {
       type: "text",
       text: "404 not found"
