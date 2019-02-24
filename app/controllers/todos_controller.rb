@@ -5,7 +5,7 @@ class TodosController < ApplicationController
   # GET /todos
   # GET /todos.json
   def index
-    @todos = current_user&.todos&.all
+    #@todos = current_user&.todos&.all
     @todos ||= Todo.all
   end
 
@@ -26,7 +26,8 @@ class TodosController < ApplicationController
   # POST /todos
   # POST /todos.json
   def create
-    @todo = current_user.todos.build(todo_params)
+    #@todo = current_user.todos.build(todo_params)
+    @todo = Todo.new(todo_params)
 
     respond_to do |format|
       if @todo.save
