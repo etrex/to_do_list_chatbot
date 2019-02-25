@@ -4,7 +4,7 @@ module LineHelper
       body: flex_vertical_box([
         flex_nav(title: title, menu_action: menu_action, new_action: new_action),
         flex_separator,
-        flex_list_body(list, margin: "lg") || flex_empty_body(empty_message),
+        flex_list_body(list, margin: "lg") || flex_empty_body(empty_message, margin: "lg"),
       ])
     )
   end
