@@ -14,13 +14,13 @@ class LineController < ApplicationController
 
   def process_event(event)
     reply_token = event['replyToken']
-    http_method, path = language_understanding(event.message['text'])
-    output = reserve_route_for_line(path, http_method)
-    # puts output
+    http_method, path, request_params = language_understanding(event.message['text'])
+    output = reserve_route_for_line(http_method, path, request_params)
     response = client.reply_message(reply_token, JSON.parse(output))
-    # puts "response.body ="
-    # puts response.body
-  rescue NoMethodError
+    puts response.body
+
+  rescue NoMethodError => e
+    puts e.message
     response = client.reply_message(reply_token, {
       type: "text",
       text: "404 not found"
@@ -31,18 +31,26 @@ class LineController < ApplicationController
     http_method = %w[GET POST PUT PATCH DELETE].find do |http_method|
       text.start_with? http_method
     end
-    text = text[http_method.count..-1] if http_method.present?
+    text = text[http_method.size..-1] if http_method.present?
     text = text.strip
     lines = text.split("\n").compact
-    path = lines[0]
-    query_string = lines[1..-1].join("&")
-    [http_method || "GET", "#{path}?#{query_string}"]
+    path = lines.shift
+    request_params = parse_json(lines.join(""))
+    request_params[:authenticity_token] = form_authenticity_token
+    [http_method, path, request_params]
   end
 
-  def reserve_route_for_line(path, http_method)
+  def parse_json(string)
+    return {} if string.strip.empty?
+    JSON.parse(string)
+  end
+
+  def reserve_route_for_line(http_method, path, request_params)
+    request.request_method = http_method || "GET"
     request.path_info = path
-    request.request_method = http_method
     request.format = :line
+    request.request_parameters = request_params
+
     res = Rails.application.routes.router.serve(request)
     res[2].body
   end

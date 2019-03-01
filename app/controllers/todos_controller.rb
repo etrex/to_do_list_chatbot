@@ -5,8 +5,7 @@ class TodosController < ApplicationController
   # GET /todos
   # GET /todos.json
   def index
-    puts " == LINE_CHANNEL_SECRET == "
-    puts ENV["LINE_CHANNEL_SECRET"]
+    puts params
     #@todos = current_user&.todos&.all
     @todos ||= Todo.all
   end
@@ -33,11 +32,14 @@ class TodosController < ApplicationController
 
     respond_to do |format|
       if @todo.save
+        @todos = Todo.all
         format.html { redirect_to @todo, notice: 'Todo was successfully created.' }
         format.json { render :show, status: :created, location: @todo }
+        format.line { render :index }
       else
         format.html { render :new }
         format.json { render json: @todo.errors, status: :unprocessable_entity }
+        format.line { render json: flex_text(@todo.errors.to_s) }
       end
     end
   end
@@ -60,9 +62,11 @@ class TodosController < ApplicationController
   # DELETE /todos/1.json
   def destroy
     @todo.destroy
+    @todos = Todo.all
     respond_to do |format|
       format.html { redirect_to todos_url, notice: 'Todo was successfully destroyed.' }
       format.json { head :no_content }
+      format.line { render :index }
     end
   end
 

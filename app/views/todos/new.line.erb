@@ -1,3 +1,8 @@
-<%= raw JSON.pretty_generate(
-  flex_text("POST /todos\nname=顯示名稱")
-) %>
+<%= raw(LineFlex.bubble do
+  body do
+    text "POST /todos\n#{ {todo:{name: "顯示名稱"}}.to_json }", wrap: true
+  end
+  quick_reply do
+    message_action "試試看", text: "POST /todos\n#{ {todo:{name: "顯示名稱"}}.to_json }"
+  end
+end.to_json )%>
