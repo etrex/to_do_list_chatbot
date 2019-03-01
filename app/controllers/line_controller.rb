@@ -14,12 +14,12 @@ class LineController < ApplicationController
 
   def process_event(event)
     reply_token = event['replyToken']
-    input = event.message['text']
-    output = reserve_route_for_line(input, "GET")
-    puts output
+    http_method, path = language_understanding(event.message['text'])
+    output = reserve_route_for_line(path, http_method)
+    # puts output
     response = client.reply_message(reply_token, JSON.parse(output))
-    puts "response.body ="
-    puts response.body
+    # puts "response.body ="
+    # puts response.body
   rescue NoMethodError
     response = client.reply_message(reply_token, {
       type: "text",
@@ -27,9 +27,21 @@ class LineController < ApplicationController
     })
   end
 
-  def reserve_route_for_line(path, method)
+  def language_understanding(text)
+    http_method = %w[GET POST PUT PATCH DELETE].find do |http_method|
+      text.start_with? http_method
+    end
+    text = text[http_method.count..-1] if http_method.present?
+    text = text.strip
+    lines = text.split("\n").compact
+    path = lines[0]
+    query_string = lines[1..-1].join("&")
+    [http_method || "GET", "#{path}?#{query_string}"]
+  end
+
+  def reserve_route_for_line(path, http_method)
     request.path_info = path
-    request.request_method = method
+    request.request_method = http_method
     request.format = :line
     res = Rails.application.routes.router.serve(request)
     res[2].body

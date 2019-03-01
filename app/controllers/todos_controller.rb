@@ -5,6 +5,8 @@ class TodosController < ApplicationController
   # GET /todos
   # GET /todos.json
   def index
+    puts " == LINE_CHANNEL_SECRET == "
+    puts ENV["LINE_CHANNEL_SECRET"]
     #@todos = current_user&.todos&.all
     @todos ||= Todo.all
   end
