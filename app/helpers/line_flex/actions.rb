@@ -24,14 +24,14 @@ module LineFlex
     end
 
     # URI
-    def uri_action(label, uri, **params)
+    def uri_action(uri, **params)
       action = {
         type: "uri",
-        label: label,
+        label: uri[0...40],
         uri: uri,
-        altUri: {
-          desktop: uri
-        }
+        # altUri: {
+        #   desktop: uri
+        # }
       }
       @items << action unless @items.nil?
       action

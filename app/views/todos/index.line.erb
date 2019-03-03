@@ -5,16 +5,13 @@ raw(LineFlex.bubble do
     horizontal_box do
       text "三", flex: 0, action: message_action("/")
       text "Todos"
-      text "+", align: "end", action: message_action("/todos/new")
+      text "+", align: "end", action: uri_action(liff_path(model: "todo", action: "new"))
     end
     separator
     list todos, margin: "lg" do |todo|
       text todo.name
       text "-", align: "end", action: message_action("DELETE /todos/#{todo.id}")
     end
-  end
-  quick_reply do
-    message_action("試試看")
   end
 end.to_json
 )

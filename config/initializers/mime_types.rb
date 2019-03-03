@@ -4,3 +4,4 @@
 # Mime::Type.register "text/richtext", :rtf
 
 Mime::Type.register "application/json", :line
+Mime::Type.register "text/html", :liff, mime_type_synonyms = ["application/xhtml+xml"]

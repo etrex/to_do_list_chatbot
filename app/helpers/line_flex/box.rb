@@ -2,6 +2,7 @@ module LineFlex
   class Box
     include Container
     include Actions
+    include LiffForm
 
     def initialize(params)
       @params = {layout: "vertical"}.merge(params)

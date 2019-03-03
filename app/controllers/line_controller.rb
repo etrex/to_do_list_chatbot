@@ -1,5 +1,9 @@
 class LineController < ApplicationController
   protect_from_forgery with: :null_session
+  layout "liff", only: :liff_form
+
+  def test
+  end
 
   def entry
     body = request.body.read
@@ -8,6 +12,15 @@ class LineController < ApplicationController
       process_event(event)
     end
     head :ok
+  end
+
+  def liff_form
+    query = Rack::Utils.parse_nested_query(request.query_string)
+    model_key = query["model"].to_sym
+    model_value = query["model"].capitalize.constantize.new
+    @locals = {}
+    @locals[model_key] = model_value
+    @template = "#{query["model"].pluralize}/#{query["action"]}"
   end
 
   private
