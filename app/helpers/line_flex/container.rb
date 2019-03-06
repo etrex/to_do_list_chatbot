@@ -25,10 +25,8 @@ module LineFlex
     def list(resources, **params, &block)
       return nil if resources.nil?
       vertical_box **params do
-        resources.map do |resource|
-          @contents << box(layout: "horizontal") do
-            self.instance_exec(resource, &block)
-          end
+        resources.each do |resource|
+          self.instance_exec(resource, &block)
         end
       end
     end

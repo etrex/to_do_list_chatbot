@@ -10,9 +10,8 @@ Rails.application.routes.draw do
   post 'line', to: 'line#entry'
 
   # liff form
-  get 'liff_form', to: 'line#liff_form'
+  get 'liff_form', to: 'liff#entry'
 
-  get 'test', to: 'line#test'
   # todo
   resources :todos
 end

@@ -1,9 +1,6 @@
 class LineController < ApplicationController
+  include ReverseRoute
   protect_from_forgery with: :null_session
-  layout "liff", only: :liff_form
-
-  def test
-  end
 
   def entry
     body = request.body.read
@@ -14,21 +11,12 @@ class LineController < ApplicationController
     head :ok
   end
 
-  def liff_form
-    query = Rack::Utils.parse_nested_query(request.query_string)
-    model_key = query["model"].to_sym
-    model_value = query["model"].capitalize.constantize.new
-    @locals = {}
-    @locals[model_key] = model_value
-    @template = "#{query["model"].pluralize}/#{query["action"]}"
-  end
-
   private
 
   def process_event(event)
     reply_token = event['replyToken']
     http_method, path, request_params = language_understanding(event.message['text'])
-    output = reserve_route_for_line(http_method, path, request_params)
+    output = reserve_route(path, http_method: http_method, request_params: request_params, format: :line)
     response = client.reply_message(reply_token, JSON.parse(output))
     puts response.body
 
@@ -50,22 +38,13 @@ class LineController < ApplicationController
     path = lines.shift
     request_params = parse_json(lines.join(""))
     request_params[:authenticity_token] = form_authenticity_token
+    http_method ||= "GET"
     [http_method, path, request_params]
   end
 
   def parse_json(string)
     return {} if string.strip.empty?
     JSON.parse(string)
-  end
-
-  def reserve_route_for_line(http_method, path, request_params)
-    request.request_method = http_method || "GET"
-    request.path_info = path
-    request.format = :line
-    request.request_parameters = request_params
-
-    res = Rails.application.routes.router.serve(request)
-    res[2].body
   end
 
   def client

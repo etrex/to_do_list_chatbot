@@ -11,12 +11,12 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :name %>
-    <%= form.text_field :name, autofocus: true %>
+    <%= form.text_field :name, class: "form-control", autofocus: true %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "新增", class: "form-control btn btn-primary" %>
   </div>
 <% end %>
