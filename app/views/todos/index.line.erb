@@ -6,7 +6,7 @@ raw(LineFlex.bubble do
     horizontal_box do
       text "🍔", flex: 0, action: message_action("/")
       text "Todos"
-      text "🆕", align: "end", action: uri_action(liff_path(path: '/todos/new', title: "新增Todo"))
+      text "🆕", align: "end", action: uri_action(liff_path(path: '/todos/new'))
     end
     separator
     if todos.present?

@@ -9,9 +9,6 @@ Rails.application.routes.draw do
   # line webhook entry
   post 'line', to: 'line#entry'
 
-  # liff form
-  get 'liff_form', to: 'liff#entry'
-
   # todo
   resources :todos
 end
