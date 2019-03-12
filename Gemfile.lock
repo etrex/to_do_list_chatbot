@@ -96,7 +96,7 @@ GEM
     jbuilder (2.8.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
-    kamiliff (0.8.0)
+    kamiliff (0.9.1)
       rails (~> 5.2.2)
     line-bot-api (1.7.0)
     listen (3.1.5)
