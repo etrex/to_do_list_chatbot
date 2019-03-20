@@ -68,3 +68,4 @@ gem "dotenv-rails", "~> 2.6"
 gem "devise", "~> 4.6"
 
 gem "kamiliff"
+gem "kamiflex"

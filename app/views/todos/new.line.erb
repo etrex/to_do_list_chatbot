@@ -1,8 +1,10 @@
-<%= raw(LineFlex.bubble do
-  body do
-    text "POST /todos\n#{ {todo:{name: "顯示名稱"}}.to_json }", wrap: true
+<%= raw(Kamiflex.build(self) do
+  bubble do
+    body do
+      text "POST /todos\n#{ {todo:{name: "顯示名稱"}}.to_json }", wrap: true
+    end
+    quick_reply do
+      message_action_item "試試看", text: "POST /todos\n#{ {todo:{name: "顯示名稱"}}.to_json }"
+    end
   end
-  quick_reply do
-    message_action "試試看", text: "POST /todos\n#{ {todo:{name: "顯示名稱"}}.to_json }"
-  end
-end.to_json )%>
+end )%>

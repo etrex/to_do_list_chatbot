@@ -1,25 +1,22 @@
-<%=
-todos = @todos
-new_todo_path = new_todo_path
-raw(LineFlex.bubble do
-  body do
-    horizontal_box do
-      text "🍔", flex: 0, action: message_action("/")
-      text "Todos"
-      text "🆕", align: "end", action: uri_action(liff_path(path: '/todos/new'))
-    end
-    separator
-    if todos.present?
-      list todos, margin: "lg" do |todo|
-        horizontal_box margin: "lg" do
-          text todo.name, action: message_action("/todos/#{todo.id}")
-          text "❌", align: "end", action: message_action("DELETE /todos/#{todo.id}")
-        end
+<%= raw(Kamiflex.build(self) do
+  bubble do
+    body do
+      horizontal_box do
+        text "🍔", flex: 0, action: message_action("/")
+        text "Todos"
+        text "🆕", align: "end", action: uri_action(liff_path(path: new_todo_path))
       end
-    else
-      text "沒有目前內容", margin: "lg"
+      separator
+      if @todos.present?
+        vertical_box margin: "lg" do
+          horizontal_box @todos, margin: "lg" do |todo|
+            text todo.name, action: message_action("/todos/#{todo.id}")
+            text "❌", align: "end", action: message_action("DELETE /todos/#{todo.id}")
+          end
+        end
+      else
+        text "沒有目前內容", margin: "lg"
+      end
     end
   end
-end.to_json
-)
-%>
+end )%>
