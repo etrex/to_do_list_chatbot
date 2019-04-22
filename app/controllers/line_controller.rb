@@ -15,6 +15,7 @@ class LineController < ApplicationController
 
   def process_event(event)
     reply_token = event['replyToken']
+    event
     http_method, path, request_params = language_understanding(event.message['text'])
     output = reserve_route(path, http_method: http_method, request_params: request_params, format: :line)
     response = client.reply_message(reply_token, JSON.parse(output))
@@ -38,7 +39,7 @@ class LineController < ApplicationController
     path = lines.shift
     request_params = parse_json(lines.join(""))
     request_params[:authenticity_token] = form_authenticity_token
-    http_method ||= "GET"
+    http_method = request_params["_method"]&.upcase || http_method || "GET"
     [http_method, path, request_params]
   end
 

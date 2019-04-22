@@ -1,5 +1,7 @@
 {
   "name": "to_do_list_chatbot",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "markdown-it": "^8.4.2"
+  }
 }

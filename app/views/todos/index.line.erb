@@ -3,14 +3,14 @@
     body do
       horizontal_box do
         text "🍔", flex: 0, action: message_action("/")
-        text "Todos"
-        text "🆕", align: "end", action: uri_action(liff_path(path: new_todo_path))
+        text "Todos", weight: "bold", margin: "sm"
+        text "new", align: "end", action: uri_action(liff_path(path: new_todo_path)), color: "#0000ee"
       end
       separator
       if @todos.present?
         vertical_box margin: "lg" do
           horizontal_box @todos, margin: "lg" do |todo|
-            text todo.name, action: message_action("/todos/#{todo.id}")
+            text todo.name, action: message_action("GET /todos/#{todo.id}")
             text "❌", align: "end", action: message_action("DELETE /todos/#{todo.id}")
           end
         end
