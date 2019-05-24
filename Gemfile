@@ -67,5 +67,5 @@ gem "dotenv-rails", "~> 2.6"
 
 gem "devise", "~> 4.6"
 
-gem "kamiliff", path: "../kamiliff"
-gem "kamiflex", path: "../kamiflex"
+gem "kamiliff"#, path: "../kamiliff"
+gem "kamiflex"#, path: "../kamiflex"
