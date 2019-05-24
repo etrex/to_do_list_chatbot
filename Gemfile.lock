@@ -1,13 +1,13 @@
 PATH
   remote: ../kamiflex
   specs:
-    kamiflex (0.6.0)
+    kamiflex (0.8.0)
       json
 
 PATH
   remote: ../kamiliff
   specs:
-    kamiliff (0.10.2)
+    kamiliff (0.10.3)
       rails (~> 5.2)
 
 GEM
