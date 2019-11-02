@@ -65,7 +65,7 @@ gem "line-bot-api", "~> 1.5"
 
 gem "dotenv-rails", "~> 2.6"
 
-gem "devise", "~> 4.6"
+gem "devise", "~> 4.7"
 
 gem "kamiliff"#, path: "../kamiliff"
 gem "kamiflex"#, path: "../kamiflex"
